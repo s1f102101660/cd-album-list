@@ -3,7 +3,7 @@ from album.models import Albums
 
 # Create your views here.
 def index(request):
-    albums = Albums.objects.prefetch_related('artist').all()
+    albums = Albums.objects.all()
     return render(request, 'album/index.html', context=locals())
 
 def detail(request, album_id):
