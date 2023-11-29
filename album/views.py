@@ -8,5 +8,5 @@ def index(request):
 
 def detail(request, album_id):
     album = Albums.objects.get(pk=album_id)
-    tracks = album.tracks.all()
+    tracks = album.tracks.prefetch_related('genre').all()
     return render(request, 'album/detail.html', context=locals())
