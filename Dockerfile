@@ -11,7 +11,8 @@ COPY poetry.lock pyproject.toml /app/
 RUN pip install poetry && poetry install
 
 # Copy the project code into the container at /app
-COPY pyproject.toml poetry.lock /app/
+COPY poetry.lock pyproject.toml /app/
+
 
 
 # Run migrations
