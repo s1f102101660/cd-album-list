@@ -1,10 +1,23 @@
-FROM python:3.10
+# Use the official Python image as the base image
+FROM python:3.8
 
-COPY . /opt/cd-album-list
-WORKDIR /opt/cd-album-list
+# Set the working directory inside the container
+WORKDIR /app
 
-RUN pip install -r requirements.txt
-ENV FLASK_APP app.py
+# Copy the requirements file into the container at /app
+COPY poetry.lock pyproject.toml /app/
 
+# Install poetry and project dependencies
+RUN pip install poetry && poetry install
+
+# Copy the project code into the container at /app
+COPY . /app/
+
+# Run migrations
+RUN poetry run python manage.py migrate
+
+# Expose port 8000
 EXPOSE 8000
-CMD ["flask", "run", "-h", "0.0.0.0", "-p", "8000"]
+
+# Command to run the application
+CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
