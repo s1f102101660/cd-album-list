@@ -1,19 +1,14 @@
-# Use the official Python image as the base image
-FROM python:3.8
-
 # Set the working directory inside the container
 WORKDIR /app
 
 # Copy the requirements file into the container at /app
-COPY poetry.lock pyproject.toml /app/
+COPY pyproject.toml poetry.lock /app/
 
 # Install poetry and project dependencies
 RUN pip install poetry && poetry install
 
 # Copy the project code into the container at /app
-COPY poetry.lock pyproject.toml /app/
-
-
+COPY . /app/
 
 # Run migrations
 RUN poetry run python manage.py migrate
