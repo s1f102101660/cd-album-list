@@ -1,7 +1,7 @@
 FROM python:3.10
 
-COPY . /opt/album
-WORKDIR /opt/album
+COPY . /opt/cd-album-list
+WORKDIR /opt/cd-album-list
 
 RUN pip install -r requirements.txt
 ENV FLASK_APP app.py
